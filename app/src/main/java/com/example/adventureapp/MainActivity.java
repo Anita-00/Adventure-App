@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 // sign up screen
@@ -14,7 +15,8 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     TextView signup;
-    Context main;
+    Context context;
+    Button login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +24,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // set the context
-        main = this;
+        context = this;
 
-        // get the sign up textview id
-        // underline the sign up text
+        // find the UI ids
         signup = findViewById(R.id.signUpLink);
+        login = findViewById(R.id.loginButton);
+
+        // underline the sign up text
         signup.setPaintFlags(signup.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         HideUI hideUI = new HideUI(getWindow());
@@ -36,11 +40,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // gets redirected to sign up page
-                Intent intent = new Intent( main, SignupActivity.class);
+                Intent intent = new Intent( context, SignupActivity.class);
                 startActivity(intent);
-
-
             }
         });
+
+        // listen if sign up button is clicked
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // VALIDATE USER FIRST
+
+                Intent intent = new Intent( context, MainScreenActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
